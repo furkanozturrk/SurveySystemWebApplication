@@ -1,0 +1,169 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<SurveySystem.Models.AnswerLine>
+@{
+
+    int evet = 0;
+    int hayır = 0;
+}
+
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script src="~/Content/assets/js/jquery-1.4.2.min.js"></script>
+    <script src="~/Content/assets/js/jquery-ui-1.8.1.custom.min.js"></script>
+    <script src="~/Content/assets/js/main.js"></script>
+</head>
+
+<div class="container-fluid">
+
+
+
+    <div class="row mt-4">
+        <div class="col-12 col-lg-6 col-xl-4">
+            <div class="card gradient-purpink">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body text-left">
+                            <h4 class="text-white">@Model.Count()</h4>
+                            <span class="text-white">Toplam Soru Sayısı</span>
+                        </div>
+                        <div class="align-self-center"><span id="dash-chart-1"><canvas width="81" height="35" style="display: inline-block; width: 81px; height: 35px; vertical-align: top;"></canvas></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-4">
+            <div class="card gradient-scooter">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body text-left">
+
+                            @foreach (var item in Model)
+                            {
+                                if (item.Answer == "Evet")
+                                {
+                                    evet++;
+                                }
+                            }
+                            <h4 class="text-white">@evet</h4>
+                            <span class="text-white">Toplam Evet sayısı</span>
+                        </div>
+                        <div class="align-self-center"><span id="dash-chart-2"><canvas width="80" height="40" style="display: inline-block; width: 80px; height: 40px; vertical-align: top;"></canvas></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-4">
+            <div class="card gradient-ibiza">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body text-left">
+                            @foreach (var item in Model)
+                            {
+                                if (item.Answer == "Hayır")
+                                {
+                                    hayır++;
+                                }
+                            }
+                            <h4 class="text-white">@hayır</h4>
+                            <span class="text-white">Toplam Hayır sayısı</span>
+                        </div>
+                        <div class="align-self-center"><span id="dash-chart-3"><canvas width="75" height="40" style="display: inline-block; width: 75px; height: 40px; vertical-align: top;"></canvas></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row ">
+    <div class="col-12 col-lg-12 col-xl-12">
+        <div style="float:none;width:700px;height:300px;">
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+        </script>
+
+        <script>
+
+
+
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'pie',
+
+
+                data: {
+                    labels: ['Evet', 'Hayır'],
+                    datasets: [{
+                        label: 'Veri Grafiği',
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        data: [@evet,@hayır]
+                    }]
+                },
+
+                options: {}
+            });
+
+
+
+
+        </script>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="~/Content/assets/js/jquery.min.js"></script>
+<script src="~/Content/assets/js/popper.min.js"></script>
+<script src="~/Content/assets/js/bootstrap.min.js"></script>
+
+<!-- simplebar js -->
+<script src="~/Content/assets/plugins/simplebar/js/simplebar.js"></script>
+<!-- waves effect js -->
+<script src="~/Content/assets/js/waves.js"></script>
+<!-- sidebar-menu js -->
+<script src="~/Content/assets/js/sidebar-menu.js"></script>
+<!-- Custom scripts -->
+<script src="~/Content/assets/js/app-script.js"></script>
+
+<!-- Vector map JavaScript -->
+<script src="~/Content/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
+<script src="~/Content/assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
+<!-- Sparkline JS -->
+<script src="~/Content/assets/plugins/sparkline-charts/jquery.sparkline.min.js"></script>
+<!-- Chart js -->
+<script src="~/Content/assets/plugins/Chart.js/Chart.min.js"></script>
+<!--notification js -->
+<script src="~/Content/assets/plugins/notifications/js/lobibox.min.js"></script>
+<script src="~/Content/assets/plugins/notifications/js/notifications.min.js"></script>
+<!-- Index js -->
+<script src="~/Content/assets/js/index.js"></script>
+
+<div class="jvectormap-tip"></div><div class="lobibox-notify-wrapper top right"></div>
